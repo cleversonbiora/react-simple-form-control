@@ -1,0 +1,25 @@
+{
+  "name": "react-sample-form",
+  "version": "1.3.1",
+  "description": "A simple and small lib to simplify Forms on Reactjs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cleversonbiora/react-sample-form.git"
+  },
+  "keywords": [
+    "react",
+    "dynamic",
+    "form",
+    "page"
+  ],
+  "author": "Cleverson Biora",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cleversonbiora/react-sample-form/issues"
+  },
+  "homepage": "https://github.com/cleversonbiora/react-sample-form#readme"
+}
