@@ -37,14 +37,15 @@ export default class Form extends Component {
     }
   }
 
-  onBlur(){
+  onBlur(e){
+    console.log(e.target.name);
     const{
       form,
     } = this.state;
     let validations = this.state.validations;
     Object.entries(form).forEach(async element => {
       const item = element[1];
-      if(item && item.validation){
+      if(element[0] == e.target.name && item && item.validation){
         const [output, valid, value] = await getValidation(item.validation,item.value,this.getFormValues(form));
         if(!valid)
           validations[output] = value;
@@ -103,7 +104,6 @@ export default class Form extends Component {
     const {
       validations
     } = this.state;
-    debugger
     if (element.props) {
       if (element.type && isControlledComponent(element.type) && (element.type !== 'input' || isControlledInput(element.props.type)) && this.state.form[element.props.name]) {
           const formItem = this.state.form[element.props.name]
