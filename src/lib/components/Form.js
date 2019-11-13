@@ -103,6 +103,7 @@ export default class Form extends Component {
     const {
       validations
     } = this.state;
+    debugger
     if (element.props) {
       if (element.type && isControlledComponent(element.type) && (element.type !== 'input' || isControlledInput(element.props.type)) && this.state.form[element.props.name]) {
           const formItem = this.state.form[element.props.name]
@@ -122,13 +123,10 @@ export default class Form extends Component {
         return {...element, props: { ...element.props, children: validations[element.props.id] }};
       }
       if (element.props.children) {
-        return this.processControlledChildren(element.props.children);
+          return {...element, props: { ...element.props, children: this.processControlledChildren(element.props.children) }};
       }
-      return element;
     }
-    else {
-      return element;
-    }
+    return element;
   }
 
   render(){

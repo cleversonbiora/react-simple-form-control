@@ -3,8 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
     "react-scripts": "3.0.1"
   },
   "scripts": {
@@ -29,14 +27,14 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-object-rest-spread": "^7.3.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-plugin-transform-es2015-modules-systemjs": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "cross-env": "^5.2.0",
-    "react": "^16.8.2",
-    "react-dom": "^16.8.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
     "react-scripts": "2.1.5",
     "systemjs": "^3.0.1"
   }
