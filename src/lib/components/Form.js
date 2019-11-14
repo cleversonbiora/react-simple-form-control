@@ -36,8 +36,7 @@ export default class Form extends Component {
         this.props.onChangeForm(form);
     }
     if(this.props.onValid){
-      debugger
-      this.isFormValid().then(valid => this.props.onValid(valid));
+      this.isFormValid(form).then(valid => this.props.onValid(valid));
     }
   }
 
@@ -67,17 +66,15 @@ export default class Form extends Component {
     return values;
   }
 
-  async isFormValid(){
+  async isFormValid(form){
     var isValid = true;
-    const{
-      form
-    } = this.state;
     for (const element of Object.entries(form)) {
       const item = element[1];
       if(item && item.validation){
          // eslint-disable-next-line
         const [output, valid, value] = await getValidation(item.validation,item.value,this.getFormValues(form));
-        isValid = valid;
+        if(!valid)
+          isValid = false;
       }
     }
     return isValid;

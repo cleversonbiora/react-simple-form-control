@@ -33,23 +33,6 @@ export default class App extends Component {
                 validators:[{
                     type:"required",
                     msg:"Campo obrigatório."
-                },
-                {
-                    type:"minLength",
-                    params:[8],
-                    msg:"Menor que 8."
-                },
-                {
-                    type:"maxLength",
-                    params:[20],
-                    msg:"Maior que 20."
-                },
-                {
-                    type:"custom",
-                    args:["lastname"],
-                    params:["{lastname}"],
-                    body:"return lastname !== value;",
-                    msg:"Nome Igual Sobrenome"
                 }]
             }
           },
@@ -67,7 +50,14 @@ export default class App extends Component {
             value:"1"
           },
           doIt:{
-            value:true
+            value:true,
+            validation:{
+                output:"doitError",
+                validators:[{
+                    type:"required",
+                    msg:"Campo obrigatório."
+                }]
+              }
           },
           sexo:{
             value:'M'
@@ -95,13 +85,11 @@ export default class App extends Component {
   }
 
   _onValid(valid){
-    debugger
     this.setState({valid})
   }
 
   render(){
     const {form, valid} = this.state;
-    debugger
     return (
       <div className="App">
         <Form onSubmit={this._onSubmit} formControl={form} onChangeForm={this._onChangeForm} onValid={this._onValid}>
@@ -122,6 +110,7 @@ export default class App extends Component {
           <br/>
           Do you do?:<br/>
           <input type="checkbox" id="doIt" name="doIt"/>
+            <span id="doitError"></span>
           <br/>
           Sexo:<br/>
           <input type="radio" id="sexoM" value="M" name="sexo"/>
