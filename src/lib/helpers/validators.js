@@ -1,5 +1,41 @@
 import { isVariable, getVariableString, getVariables } from "./values";
 
+export function getFormValues(form){
+    var values = {};
+    Object.entries(form).forEach(element => {
+      values[element[0]] = element[1].value;
+    });
+    return values;
+}
+
+export async function isFormValid(form){
+    var isValid = true;
+    for (const element of Object.entries(form)) {
+      const item = element[1];
+      if(item && item.validation){
+         // eslint-disable-next-line
+        const [output, valid, value] = await getValidation(item.validation,item.value,getFormValues(form));
+        if(!valid)
+          isValid = false;
+      }
+    }
+    return isValid;
+}
+
+export async function isStepValid(form,inputs){
+    var isValid = true;
+    for (const element of Object.entries(form).filter(x => inputs.includes(x[0]))) {
+      const item = element[1];
+      if(item && item.validation){
+         // eslint-disable-next-line
+        const [output, valid, value] = await getValidation(item.validation,item.value,getFormValues(form));
+        if(!valid)
+          isValid = false;
+      }
+    }
+    return isValid;
+}
+
 export async function getValidation(validation,value,values = {}){
     let valid = true;
     let msg = "";
@@ -14,18 +50,26 @@ export async function getValidation(validation,value,values = {}){
                 msg = element.msg;
             }
         }
-        else if(element.params){
-            var params = element.params.map(val => isVariable(val) ? values[getVariableString(val)] : val);
-            if(element.type === 'custom'){
+        else if(element.type === 'custom'){
+            if(element.params){
+                let params = element.params.map(val => isVariable(val) ? values[getVariableString(val)] : val);
                 if(!Validators[element.type](element, [value,...params])){
                     valid = false;
                     msg = element.msg;
                 }
-            }else{
-                if(!Validators[element.type](value,...params)){
+            }
+            else{
+                if(!Validators[element.type](element, [value])){
                     valid = false;
                     msg = element.msg;
                 }
+            }
+        }
+        else if(element.params){
+            let params = element.params.map(val => isVariable(val) ? values[getVariableString(val)] : val);
+            if(!Validators[element.type](value,...params)){
+                valid = false;
+                msg = element.msg;
             }
         }else{
             if(!Validators[element.type](value)){
@@ -97,9 +141,14 @@ export class Validators{
     }
 
     static custom(rule, args){
-        // eslint-disable-next-line
-        var jsonFunc = new Function(["value",...rule.args], rule.body);
-        return jsonFunc(...args)
+        if(rule.function && rule.function instanceof Function)
+            return rule.function(...args);
+        else{
+            // eslint-disable-next-line
+            var jsonFunc = rule.args ? new Function(["value",...rule.args], rule.body) : new Function(["value"], rule.body);
+            return jsonFunc(...args)
+        }
+
     }
 
     static async async(rule, values){

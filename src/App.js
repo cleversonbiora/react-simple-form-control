@@ -33,6 +33,17 @@ export default class App extends Component {
                 validators:[{
                     type:"required",
                     msg:"Campo obrigatório."
+                },
+                {
+                    type:"custom",
+                    args:["lastname"],
+                    params:["{lastname}"],
+                    function:(value,lastname) => {
+                        if(value === lastname)
+                          return true;
+                        return false;
+                    },
+                    msg:"Teste inválido"
                 }]
             }
           },
@@ -50,7 +61,7 @@ export default class App extends Component {
             value:"1"
           },
           doIt:{
-            value:true,
+            value:false,
             validation:{
                 output:"doitError",
                 validators:[{
@@ -72,7 +83,7 @@ export default class App extends Component {
 
   }
 
-  alerta(){
+  async alerta(){
     console.log(this.state.form);
   } 
 

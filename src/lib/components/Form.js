@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import { isControlledComponent, isControlledInput } from "../helpers/inputs";
-import { getValidation } from "../helpers/validators";
+import { getValidation, isFormValid, getFormValues } from "../helpers/validators";
 import * as Mask from "../helpers/mask";
 
 export default class Form extends Component {
@@ -36,7 +36,7 @@ export default class Form extends Component {
         this.props.onChangeForm(form);
     }
     if(this.props.onValid){
-      this.isFormValid(form).then(valid => this.props.onValid(valid));
+      isFormValid(form).then(valid => this.props.onValid(valid));
     }
   }
 
@@ -48,7 +48,7 @@ export default class Form extends Component {
     Object.entries(form).forEach(async element => {
       const item = element[1];
       if(element[0] === e.target.name && item && item.validation){
-        const [output, valid, value] = await getValidation(item.validation,item.value,this.getFormValues(form));
+        const [output, valid, value] = await getValidation(item.validation,item.value,getFormValues(form));
         if(!valid)
           validations[output] = value;
         else
@@ -56,28 +56,6 @@ export default class Form extends Component {
       }
       this.setState(validations);
     });
-  }
-
-  getFormValues(form){
-    var values = {};
-    Object.entries(form).forEach(element => {
-      values[element[0]] = element[1].value;
-    });
-    return values;
-  }
-
-  async isFormValid(form){
-    var isValid = true;
-    for (const element of Object.entries(form)) {
-      const item = element[1];
-      if(item && item.validation){
-         // eslint-disable-next-line
-        const [output, valid, value] = await getValidation(item.validation,item.value,this.getFormValues(form));
-        if(!valid)
-          isValid = false;
-      }
-    }
-    return isValid;
   }
 
   async isValid(){
@@ -90,7 +68,7 @@ export default class Form extends Component {
     for (const element of Object.entries(form)) {
       const item = element[1];
       if(item && item.validation){
-        const [output, valid, value] = await getValidation(item.validation,item.value,this.getFormValues(form));
+        const [output, valid, value] = await getValidation(item.validation,item.value,getFormValues(form));
         if(!valid){
           validations[output] = value;
           errors.push(value);
@@ -149,7 +127,7 @@ export default class Form extends Component {
     const _onSubmit = async (event) => {
         event.preventDefault();
         if(this.props.onSubmit)
-            this.props.onSubmit(this.getFormValues(this.state.form), await this.isValid());
+            this.props.onSubmit(getFormValues(this.state.form), await this.isValid());
         else
             console.log(this.state.form);
     }
