@@ -24,6 +24,7 @@ export default class App extends Component {
   constructor(props){
     super(props);
     this.state ={
+        valid: false,
         form:{
           firstname:{
             value:'',
@@ -77,6 +78,8 @@ export default class App extends Component {
         }
     }
     this._onChangeForm = this._onChangeForm.bind(this);
+    this._onValid = this._onValid.bind(this);
+
   }
 
   alerta(){
@@ -91,10 +94,17 @@ export default class App extends Component {
     this.setState({form})
   }
 
+  _onValid(valid){
+    debugger
+    this.setState({valid})
+  }
+
   render(){
+    const {form, valid} = this.state;
+    debugger
     return (
       <div className="App">
-        <Form onSubmit={this._onSubmit} formControl={this.state.form} onChangeForm={this._onChangeForm}>
+        <Form onSubmit={this._onSubmit} formControl={form} onChangeForm={this._onChangeForm} onValid={this._onValid}>
           <MiddleName/>
           <Main/>
           First name:<br/>
@@ -130,7 +140,7 @@ export default class App extends Component {
 
           <br/><br/>
           <input type="button" value="Logging" onClick={() => this.alerta()}/>
-          <input type="submit" value="Submit"/>
+          <input type="submit" value="Submit" disabled={!valid}/>
         </Form> 
       </div>
     );

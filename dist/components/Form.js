@@ -35,16 +35,20 @@ export default class Form extends Component {
     if (this.props.onChangeForm) {
       this.props.onChangeForm(form);
     }
+    if (this.props.onValid) {
+      debugger;
+      this.isFormValid().then(valid => this.props.onValid(valid));
+    }
   }
 
-  onBlur() {
+  onBlur(e) {
     const {
       form
     } = this.state;
     let validations = this.state.validations;
     Object.entries(form).forEach(async element => {
       const item = element[1];
-      if (item && item.validation) {
+      if (element[0] === e.target.name && item && item.validation) {
         const [output, valid, value] = await getValidation(item.validation, item.value, this.getFormValues(form));
         if (!valid) validations[output] = value;else validations[output] = '';
       }
@@ -58,6 +62,22 @@ export default class Form extends Component {
       values[element[0]] = element[1].value;
     });
     return values;
+  }
+
+  async isFormValid() {
+    var isValid = true;
+    const {
+      form
+    } = this.state;
+    for (const element of Object.entries(form)) {
+      const item = element[1];
+      if (item && item.validation) {
+        // eslint-disable-next-line
+        const [output, valid, value] = await getValidation(item.validation, item.value, this.getFormValues(form));
+        isValid = valid;
+      }
+    }
+    return isValid;
   }
 
   async isValid() {
@@ -98,7 +118,6 @@ export default class Form extends Component {
     const {
       validations
     } = this.state;
-    debugger;
     if (element.props) {
       if (element.type && isControlledComponent(element.type) && (element.type !== 'input' || isControlledInput(element.props.type)) && this.state.form[element.props.name]) {
         const formItem = this.state.form[element.props.name];
@@ -133,9 +152,10 @@ export default class Form extends Component {
           {
       children,
       formControl,
-      onChangeForm
+      onChangeForm,
+      onValid
     } = _props,
-          props = _objectWithoutProperties(_props, ["children", "formControl", "onChangeForm"]);
+          props = _objectWithoutProperties(_props, ["children", "formControl", "onChangeForm", "onValid"]);
 
     const childrenProcessed = this.processControlledChildren(children);
 
@@ -147,5 +167,5 @@ export default class Form extends Component {
   }
 }
 Form.defaultProps = {
-  model: {}
+  formControl: {}
 };

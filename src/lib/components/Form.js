@@ -35,17 +35,20 @@ export default class Form extends Component {
     if(this.props.onChangeForm){
         this.props.onChangeForm(form);
     }
+    if(this.props.onValid){
+      debugger
+      this.isFormValid().then(valid => this.props.onValid(valid));
+    }
   }
 
   onBlur(e){
-    console.log(e.target.name);
     const{
       form,
     } = this.state;
     let validations = this.state.validations;
     Object.entries(form).forEach(async element => {
       const item = element[1];
-      if(element[0] == e.target.name && item && item.validation){
+      if(element[0] === e.target.name && item && item.validation){
         const [output, valid, value] = await getValidation(item.validation,item.value,this.getFormValues(form));
         if(!valid)
           validations[output] = value;
@@ -62,6 +65,22 @@ export default class Form extends Component {
       values[element[0]] = element[1].value;
     });
     return values;
+  }
+
+  async isFormValid(){
+    var isValid = true;
+    const{
+      form
+    } = this.state;
+    for (const element of Object.entries(form)) {
+      const item = element[1];
+      if(item && item.validation){
+         // eslint-disable-next-line
+        const [output, valid, value] = await getValidation(item.validation,item.value,this.getFormValues(form));
+        isValid = valid;
+      }
+    }
+    return isValid;
   }
 
   async isValid(){
@@ -142,6 +161,7 @@ export default class Form extends Component {
       children,
       formControl,
       onChangeForm,
+      onValid,
       ...props
     } = this.props;
 
@@ -155,5 +175,5 @@ export default class Form extends Component {
   }
 }
 Form.defaultProps = {
-    model: {},
+  formControl: {},
 };
