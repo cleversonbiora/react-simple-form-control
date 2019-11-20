@@ -1,6 +1,6 @@
 {
   "name": "react-sample-form",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "A simple and small lib to simplify Forms on Reactjs.",
   "main": "index.js",
   "scripts": {

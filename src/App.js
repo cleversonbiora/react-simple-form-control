@@ -25,6 +25,7 @@ export default class App extends Component {
     super(props);
     this.state ={
         valid: false,
+        error:'',
         form:{
           firstname:{
             value:'',
@@ -100,7 +101,7 @@ export default class App extends Component {
   }
 
   render(){
-    const {form, valid} = this.state;
+    const {form, valid, error} = this.state;
     return (
       <div className="App">
         <Form onSubmit={this._onSubmit} formControl={form} onChangeForm={this._onChangeForm} onValid={this._onValid}>
@@ -137,7 +138,7 @@ export default class App extends Component {
           Descrição
           <br/>
           <textarea id="descricao" name="descricao"></textarea>
-
+          {error && <span>Teste IF</span>}
           <br/><br/>
           <input type="button" value="Logging" onClick={() => this.alerta()}/>
           <input type="submit" value="Submit" disabled={!valid}/>
