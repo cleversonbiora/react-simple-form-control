@@ -84,6 +84,7 @@ export default class Form extends Component {
 
   processControlledChildren(parent){
       var result = [];
+      debugger
       if(Array.isArray(parent)){
         parent.forEach(element => {
           result.push(this.processElement(element));
@@ -98,6 +99,8 @@ export default class Form extends Component {
     const {
       validations
     } = this.state;
+    if(Array.isArray(element))
+      return this.processControlledChildren(element);
     if (element && element.props) {
       if (element.type && isControlledComponent(element.type) && (element.type !== 'input' || isControlledInput(element.props.type)) && this.state.form[element.props.name]) {
           const formItem = this.state.form[element.props.name]

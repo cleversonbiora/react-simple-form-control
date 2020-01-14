@@ -93,6 +93,7 @@ export default class Form extends Component {
     const {
       validations
     } = this.state;
+    debugger
     if (element && element.props) {
       if (element.type && isControlledComponent(element.type) && (element.type !== 'input' || isControlledInput(element.props.type)) && this.state.form[element.props.name]) {
         const formItem = this.state.form[element.props.name];

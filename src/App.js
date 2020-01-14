@@ -102,9 +102,13 @@ export default class App extends Component {
 
   render(){
     const {form, valid, error} = this.state;
+    const sexos = ['M','F'];
     return (
       <div className="App">
         <Form onSubmit={this._onSubmit} formControl={form} onChangeForm={this._onChangeForm} onValid={this._onValid}>
+          Sexo:{this.state.form.sexo.value}<br/>
+          {sexos.map(s => <input key={s} type="radio" id={`sexo${s}`} value={s} name="sexo"/>)}
+          <br/>
           <MiddleName/>
           <Main/>
           First name:<br/>
@@ -123,10 +127,6 @@ export default class App extends Component {
           Do you do?:<br/>
           <input type="checkbox" id="doIt" name="doIt"/>
             <span id="doitError"></span>
-          <br/>
-          Sexo:<br/>
-          <input type="radio" id="sexoM" value="M" name="sexo"/>
-          <input type="radio" id="sexoF" value="F" name="sexo"/>
           <br/>
           Estado Civil:<br/>
           <select id="estadoCivil" name="estadoCivil">
