@@ -84,7 +84,6 @@ export default class Form extends Component {
 
   processControlledChildren(parent){
       var result = [];
-      debugger
       if(Array.isArray(parent)){
         parent.forEach(element => {
           result.push(this.processElement(element));
