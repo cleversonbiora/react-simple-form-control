@@ -19,76 +19,6 @@ function Child(props){
   return <input type="button" value="Change" onClick={() => props.change('Hipopotamo')}/>
 }
 
-
-class AppForm extends Component {
-  constructor(props){
-    super(props);
-    this.state ={
-        valid: false,
-        error:'',
-        form:{
-          firstname:{
-            value:'',
-            validation:{
-                output:"firstname2Error",
-                validators:[{
-                    type:"required",
-                    msg:"Campo obrigatório."
-                }]
-            }
-          },
-          lastname:{
-            value:'Amendoim'
-          }
-        }
-    }
-    this._onChangeForm = this._onChangeForm.bind(this);
-    this._onValid = this._onValid.bind(this);
-
-  }
-
-  async alerta(){
-    console.log(this.state.form);
-  } 
-
-  _onSubmit = async (values,valid) => {
-    debugger
-      console.log(values,valid);
-  }
-
-  _onChangeForm(form){
-    debugger
-    this.setState({form})
-  }
-
-  _onValid(valid){
-    this.setState({valid})
-  }
-
-  render(){
-    const {form, valid, error} = this.state;
-    const sexos = ['M','F'];
-    return (
-      <div>
-        <Form onSubmit={this._onSubmit} formControl={form} onChangeForm={this._onChangeForm} onValid={this._onValid}>
-          First name:<br/>
-          <div>
-            <input type="text" id="firstname" name="firstname"/>
-            <br/>
-            <span id="firstname2Error"></span>
-          </div>
-          <br/>
-          Last name:<br/>
-          <input type="text" id="lastname" name="lastname"/>
-          <br/>
-          <br/><br/>
-          <input type="submit" value="Submit" />
-        </Form> 
-      </div>
-    );
-  }
-}
-
 export default class App extends Component {
   constructor(props){
     super(props);
@@ -158,17 +88,20 @@ export default class App extends Component {
   } 
 
   _onSubmit = async (values,valid) => {
-    debugger
       console.log(values,valid);
   }
 
   _onChangeForm(form){
-    debugger
+    
     this.setState({form})
   }
 
   _onValid(valid){
     this.setState({valid})
+  }
+
+  _onBlur(e){
+    console.log(e.target.value);
   }
 
   render(){
@@ -185,12 +118,13 @@ export default class App extends Component {
           First name:<br/>
           <div>
             <input type="text" id="firstname" name="firstname"/>
+            <Child name="firstname" formControlled />
             <br/>
             <span id="firstnameError"></span>
           </div>
           <br/>
           Last name:<br/>
-          <input type="text" id="lastname" name="lastname"/>
+          <input type="text" id="lastname" name="lastname" onChange={this._onBlur}/>
           <br/>
           Cpf:<br/>
           <input type="text" id="cpf" name="cpf"/>
@@ -213,11 +147,6 @@ export default class App extends Component {
           <br/><br/>
           <input type="button" value="Logging" onClick={() => this.alerta()}/>
           <input type="submit" value="Submit" />
-
-          <AppForm/>
-
-
-
         </Form> 
         <hr/>
       </div>

@@ -18,7 +18,7 @@ export default class Form extends Component {
     this.onBlur = this.onBlur.bind(this);
   }
 
-  onChange(event) {
+  onChange(event){
     var value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
     var form = this.state.form;
     var element = form[event.target.name];
@@ -40,7 +40,7 @@ export default class Form extends Component {
     }
   }
 
-  onBlur(e){
+  onBlur(e) {
     const{
       form,
     } = this.state;
@@ -94,6 +94,34 @@ export default class Form extends Component {
       return result;
   }
 
+  processProps(props,value){
+    let _onBlur = this.onBlur;
+    if(typeof props.onBlur === "function"){
+        const propBlur = props.onBlur; 
+        _onBlur = (e) => {
+          this.onBlur(e);
+          propBlur(e);
+        }
+    }
+
+    let _onChange = this.onChange;
+    if(typeof props.onChange === "function"){
+        const propChange = props.onChange; 
+        _onChange = (e) => {
+          this.onChange(e);
+          propChange(e);
+        }
+    }
+    switch (props.type) {
+      case 'radio':
+        return { checked: (value === props.value) , ...props, onChange: _onChange, onBlur: _onBlur };
+      case 'checkbox':
+        return { checked: value , ...props, onChange: _onChange, onBlur: _onBlur };
+      default:
+        return { value: value , ...props, onChange: _onChange, onBlur: _onBlur };
+    }
+  }
+
   processElement(element) {
     const {
       validations
@@ -101,19 +129,14 @@ export default class Form extends Component {
     if(Array.isArray(element))
       return this.processControlledChildren(element);
     if (element && element.props) {
-      if (element.type && isControlledComponent(element.type) && (element.type !== 'input' || isControlledInput(element.props.type)) && this.state.form[element.props.name]) {
+      if(element.props.formControlled)
+        debugger
+      if ((element.props.formControlled || (element.type && isControlledComponent(element.type) && (element.type !== 'input' || isControlledInput(element.props.type)))) && this.state.form[element.props.name]) {
           const formItem = this.state.form[element.props.name]
           var value = formItem.value;
           if(formItem.mask && Mask[formItem.mask])
             value = Mask[formItem.mask](value);
-          switch (element.props.type) {
-            case 'radio':
-              return {...element, props: { checked: (value === element.props.value) , ...element.props, onChange: this.onChange, onBlur: this.onBlur }};
-            case 'checkbox':
-              return {...element, props: { checked: value , ...element.props, onChange: this.onChange, onBlur: this.onBlur }};
-            default:
-              return {...element, props: { value: value , ...element.props, onChange: this.onChange, onBlur: this.onBlur }};
-          }
+          return {...element, props: this.processProps(element.props, value)};
       }
       if(element.props.id && validations[element.props.id]){
         return {...element, props: { ...element.props, children: validations[element.props.id] }};
