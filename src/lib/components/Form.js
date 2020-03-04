@@ -129,8 +129,6 @@ export default class Form extends Component {
     if(Array.isArray(element))
       return this.processControlledChildren(element);
     if (element && element.props) {
-      if(element.props.formControlled)
-        debugger
       if ((element.props.formControlled || (element.type && isControlledComponent(element.type) && (element.type !== 'input' || isControlledInput(element.props.type)))) && this.state.form[element.props.name]) {
           const formItem = this.state.form[element.props.name]
           var value = formItem.value;

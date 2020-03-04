@@ -22,17 +22,34 @@ export async function isFormValid(form){
     return isValid;
 }
 
-export async function isStepValid(form,inputs){
+export async function isStepValid(form,param){
     var isValid = true;
-    for (const element of Object.entries(form).filter(x => inputs.includes(x[0]))) {
-      const item = element[1];
-      if(item && item.validation){
-         // eslint-disable-next-line
-        const [output, valid, value] = await getValidation(item.validation,item.value,getFormValues(form));
-        if(!valid)
-          isValid = false;
-      }
+    if (Array.isArray(param)) {
+        debugger
+        for (const element of Object.entries(form).filter(x => param.includes(x[0]))) {
+            debugger
+            const item = element[1];
+            if(item && item.validation){
+               // eslint-disable-next-line
+              const [output, valid, value] = await getValidation(item.validation,item.value,getFormValues(form));
+              if(!valid)
+                isValid = false;
+            }
+          }
+    }else{
+        debugger
+        for (const element of Object.entries(form).filter(x => x[1] && x[1].step && x[1].step === param)) {
+            debugger
+            const item = element[1];
+            if(item && item.validation){
+               // eslint-disable-next-line
+              const [output, valid, value] = await getValidation(item.validation,item.value,getFormValues(form));
+              if(!valid)
+                isValid = false;
+            }
+          }
     }
+    
     return isValid;
 }
 

@@ -1,6 +1,6 @@
 import React,{Component, useState} from 'react';
 import './App.css';
-import {Form} from './lib'
+import {Form, isStepValid} from './lib'
 
 function Main(props){
   const [msg,setMsg] = useState('Amendoim');
@@ -28,6 +28,7 @@ export default class App extends Component {
         form:{
           firstname:{
             value:'',
+            step:'step1',
             validation:{
                 output:"firstnameError",
                 validators:[{
@@ -85,6 +86,8 @@ export default class App extends Component {
 
   async alerta(){
     console.log(this.state.form);
+    console.log(await isStepValid(this.state.form,['firstname']));
+    console.log(await isStepValid(this.state.form,'step1'));
   } 
 
   _onSubmit = async (values,valid) => {
