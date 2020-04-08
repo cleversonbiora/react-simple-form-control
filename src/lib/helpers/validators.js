@@ -25,9 +25,7 @@ export async function isFormValid(form){
 export async function isStepValid(form,param){
     var isValid = true;
     if (Array.isArray(param)) {
-        debugger
         for (const element of Object.entries(form).filter(x => param.includes(x[0]))) {
-            debugger
             const item = element[1];
             if(item && item.validation){
                // eslint-disable-next-line
@@ -37,9 +35,7 @@ export async function isStepValid(form,param){
             }
           }
     }else{
-        debugger
         for (const element of Object.entries(form).filter(x => x[1] && x[1].step && x[1].step === param)) {
-            debugger
             const item = element[1];
             if(item && item.validation){
                // eslint-disable-next-line
