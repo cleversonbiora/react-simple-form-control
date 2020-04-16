@@ -126,7 +126,9 @@ export default class Form extends Component {
       if ((element.props.formControlled || element.type && isControlledComponent(element.type) && (element.type !== 'input' || isControlledInput(element.props.type))) && this.state.form[element.props.name]) {
         const formItem = this.state.form[element.props.name];
         var value = formItem.value;
-        if (formItem.mask && Mask[formItem.mask]) value = Mask[formItem.mask](value);
+        if (formItem.mask) {
+          if (typeof formItem.mask === "function") value = formItem.mask(value);else if (Mask[formItem.mask]) value = Mask[formItem.mask](value);
+        }
         return _extends({}, element, { props: this.processProps(element.props, value) });
       }
       if (element.props.id && validations[element.props.id]) {
