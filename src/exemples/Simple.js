@@ -1,30 +1,3 @@
-
-# Getting Started
-
-## Features
-
-<!-- * [Redering HTML from JSON](/react-json-page/RenderingHtml)
-* [Dynamic Forms](/react-json-page/DynamicForms)
-* [Basic Form Validation](/react-json-page/BasicValidation)
-* [Async And Custom Form Validation](/react-json-page/CustomValidation)
-* [Logical Input Hiddden](/react-json-page/InputHidden)
-* [Async Form Post](/react-json-page/AsyncPost)
-* [Async Load](/react-json-page/AsyncLoad)
-* [Inject External Components and Functions](/react-json-page/InjectedComponents) -->
-
-## Installing
-
-Run the following command:
-
-`npm i react-simple-form-control`
-
-## Basic Example
-
-In this exemple, we’ll build a simple form with validation.
-
-`Simple.js`
-
-```jsx
 import React, { Component} from 'react'
 import {Form} from '../lib'
 
@@ -113,23 +86,3 @@ export default class Simple extends Component {
     );
   }
 }
-
-
-
-```
-
-## Built With
-
-* [React](https://reactjs.org/) - The web library used
-
-## Contributing
-
-Coming soon I wiil open for submitting pull requests to us.
-
-## Authors
-
-* **Cleverson Biora** - [CleversonBiora](https://github.com/cleversonbiora)
-
-## License
-
-This project is licensed under the MIT License.

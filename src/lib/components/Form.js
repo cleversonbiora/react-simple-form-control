@@ -71,7 +71,7 @@ export default class Form extends Component {
         const [output, valid, value] = await getValidation(item.validation,item.value,getFormValues(form));
         if(!valid){
           validations[output] = value;
-          errors.push(value);
+          errors.push({field:element[0], value: value});
           isValid = false;
         }
         else
@@ -131,6 +131,8 @@ export default class Form extends Component {
     if (element && element.props) {
       if ((element.props.formControlled || (element.type && isControlledComponent(element.type) && (element.type !== 'input' || isControlledInput(element.props.type)))) && this.state.form[element.props.name]) {
           const formItem = this.state.form[element.props.name]
+          if(!formItem.ref)
+            formItem.ref = React.createRef();
           var value = formItem.value;
           if(formItem.mask){
             if(typeof formItem.mask === "function")
@@ -138,7 +140,7 @@ export default class Form extends Component {
             else if( Mask[formItem.mask])
               value = Mask[formItem.mask](value);
           }
-          return {...element, props: this.processProps(element.props, value)};
+          return {...element, ref:formItem.ref, props: this.processProps(element.props, value)};
       }
       if(element.props.id && validations[element.props.id]){
         return {...element, props: { ...element.props, children: validations[element.props.id] }};
