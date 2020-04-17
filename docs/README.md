@@ -4,9 +4,9 @@
 ## Features
 
 * [Basic Form Validation](/react-simple-form-control/BasicValidation)
-* [Async And Custom Form Validation](/react-simple-form-contro/CustomValidation)
-* [Mask](/react-simple-form-contro/Mask)
-* [More](/react-simple-form-contro/More)
+* [Async And Custom Form Validation](/react-simple-form-control/CustomValidation)
+* [Mask](/react-simple-form-control/Mask)
+* [More](/react-simple-form-control/More)
 
 ## Installing
 

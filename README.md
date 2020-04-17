@@ -7,9 +7,9 @@ This is a React lib to simplify form controls.
 ### Features
 
 * [Basic Form Validation](https://cleversonbiora.github.io/react-simple-form-control/BasicValidation)
-* [Async And Custom Form Validation](https://cleversonbiora.github.io/react-simple-form-contro/CustomValidation)
-* [Mask](https://cleversonbiora.github.io/react-simple-form-contro/Mask)
-* [More](https://cleversonbiora.github.io/react-simple-form-contro/More)
+* [Async And Custom Form Validation](https://cleversonbiora.github.io/react-simple-form-control/CustomValidation)
+* [Mask](https://cleversonbiora.github.io/react-simple-form-control/Mask)
+* [More](https://cleversonbiora.github.io/react-simple-form-control/More)
 
 ### Docs
 
