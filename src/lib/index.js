@@ -7,6 +7,9 @@ import {
 import {
     mapValues
 } from './helpers/functions';
+import {
+    maskFormat
+} from './helpers/mask';
 
 /* Elements acessible from outside of the lib... */
 export {
@@ -14,5 +17,6 @@ export {
     isFormValid,
     getFormValues,
     isStepValid,
-    mapValues
+    mapValues,
+    maskFormat
 }

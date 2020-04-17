@@ -24,8 +24,7 @@ export default class Form extends Component {
   onChange(event) {
     var value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
     var form = this.state.form;
-    var element = form[event.target.name];
-    if (element.mask && Mask[element.mask]) value = Mask[element.mask](value);
+
     form = _extends({}, form, {
       [event.target.name]: _extends({}, form[event.target.name], {
         value: value
@@ -128,7 +127,7 @@ export default class Form extends Component {
         if (!formItem.ref) formItem.ref = React.createRef();
         var value = formItem.value;
         if (formItem.mask) {
-          if (typeof formItem.mask === "function") value = formItem.mask(value);else if (Mask[formItem.mask]) value = Mask[formItem.mask](value);
+          if (typeof formItem.mask === "function") value = formItem.mask(value);else if (Mask[formItem.mask]) value = Mask[formItem.mask](value);else value = Mask.maskFormat(value, formItem.mask);
         }
         return _extends({}, element, { ref: formItem.ref, props: this.processProps(element.props, value) });
       }

@@ -21,9 +21,7 @@ export default class Form extends Component {
   onChange(event){
     var value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
     var form = this.state.form;
-    var element = form[event.target.name];
-    if(element.mask && Mask[element.mask])
-      value = Mask[element.mask](value);
+
     form = {
       ...form,
       [event.target.name]: {
@@ -139,6 +137,8 @@ export default class Form extends Component {
               value = formItem.mask(value);
             else if( Mask[formItem.mask])
               value = Mask[formItem.mask](value);
+            else
+              value = Mask.maskFormat(value, formItem.mask);
           }
           return {...element, ref:formItem.ref, props: this.processProps(element.props, value)};
       }

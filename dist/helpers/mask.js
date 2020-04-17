@@ -12,3 +12,40 @@ export const cellphoneBR = value => {
   return value.replace(/\D/g, '') // substitui qualquer caracter que nao seja numero por nada
   .replace(/(\d{2})(\d)/, '($1) $2').replace(/(\d{5})(\d)/, '$1-$2');
 };
+
+export const maskFormat = (value, mask) => {
+  let chars = ['*', '9', 'a'];
+  let formatedValue = '';
+  let j = 0;
+  let scape = false;
+  for (let i = 0; i < mask.length; i++) {
+    if (j < value.length) {
+      if (mask[i] === '\\') {
+        scape = true;
+        continue;
+      }
+      if (chars.indexOf(mask[i]) === -1 || scape) {
+        formatedValue += mask[i];
+      } else {
+        switch (mask[i]) {
+          case '9':
+            let number = value[j].replace(/\D/g, '');
+            if (number) formatedValue += number;else i--;
+            break;
+          case 'a':
+            let char = value[j].replace(/[^a-zA-Z]+/g, '');
+            if (char) formatedValue += char;else i--;
+            break;
+          default:
+            formatedValue += value[j];
+            break;
+        }
+        j++;
+      }
+    } else {
+      break;
+    }
+    scape = false;
+  }
+  return formatedValue;
+};

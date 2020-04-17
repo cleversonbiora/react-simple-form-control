@@ -1,6 +1,6 @@
 {
   "name": "react-simple-form-control",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "A simple and small lib to simplify Forms on Reactjs.",
   "main": "index.js",
   "scripts": {

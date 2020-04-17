@@ -27,7 +27,7 @@ export default class Mask extends Component {
           },
           cpf:{
             value:'',
-            mask:'cpf',
+            mask:'999.999.999-99',
             validation:{
                 output:"cpfError",
                 validators:[{
@@ -40,7 +40,7 @@ export default class Mask extends Component {
             value:'',
             mask:'telUsa',
             validation:{
-                output:"cpfError",
+                output:"phoneError",
                 validators:[{
                     type:"required",
                     msg:"Required Field."

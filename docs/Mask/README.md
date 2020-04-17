@@ -2,6 +2,20 @@
 
 The mask formating on your inputs.
 
+
+## patern mask
+
+```jsx
+this.state = {
+        form:{
+          phone:{
+            value:'',
+            mask:'(999) 999-9999'
+          }
+        }
+}
+```
+
 ## default mask
 
 ```jsx
