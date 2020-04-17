@@ -1,6 +1,6 @@
 # react-simple-form-control
 
-This is a React lib to generate pages and forms based in json files.
+This is a React lib to simplify form controls.
 
 ## Getting Started
 
