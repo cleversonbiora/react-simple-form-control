@@ -1,4 +1,4 @@
-# react-json-page
+# react-simple-form-control
 
 This is a React lib to generate pages and forms based in json files.
 
