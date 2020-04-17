@@ -4,36 +4,56 @@ You can use Async and Custom validations in your forms.
 
 ## Async Validation
 
-```json
-{  
-    /*Any tag attribute*/
-    "validation":{
-        "output":"emailError",
-        "validators":[{
-            "type":"async",
-            "msg":"Email already used.",
-            "apiUrl":"https://ypur.api/hasEmail?email={email}",
-            "method":"GET",
-            "valueField":"success"
-        }]
-    }
+```jsx
+this.state = {
+        form:{
+          email:{
+            value:'',
+            validation:{
+                output:"emailError",
+                validators:[{
+                    type:"async",
+                    msg:"Email ja cadastrado.",
+                    apiUrl:"http://www.mocky.io/v2/5e988f593500002e00c483c2",
+                    method:"GET",
+                    headers:{
+                            "Content-Type":"application/json",
+                            "Authorization": "Bearer xxxxx"
+                    },
+                    valueField:"success"
+                }]
+            }
+          }
+        }
 }
 ```
 
 ## Custom Validation
 
-```json
-{  
-    /*Any tag attribute*/
-    "validation":{
-        "output":"firstNameError",
-        "validators":[{
-            "type":"custom",
-            "args":["lastName"],
-            "params":["{lastName}"],
-            "body":"return lastName !== value",
-            "msg":"First Name equals Last Name"
-        }]
-    }
+```jsx
+this.state = {
+        form:{
+          firstname:{
+                value:''
+            }
+          },
+          lastname:{
+            value:'',
+            validation:{
+                output:"lastnameError",
+                validators:[{
+                    type:"custom",
+                    args:["firstname"],
+                    params:["{firstname}"],
+                    function:(value,firstname) => {
+                        if(value !== firstname)
+                          return true;
+                        return false;
+                    },
+                    msg:"Last Name must be diffente from First Name"
+                }]
+            }
+          }
+        }
 }
 ```

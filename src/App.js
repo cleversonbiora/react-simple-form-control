@@ -2,7 +2,9 @@ import React,{Component} from 'react';
 import './App.css';
 import { 
   Simple,
-  Validation
+  Validation,
+  Mask,
+  Others
 } from './exemples'
 
 export default class App extends Component {
@@ -27,6 +29,12 @@ export default class App extends Component {
       case 2:
         exenple = <Validation/>
         break;
+      case 3:
+        exenple = <Mask/>
+        break;
+      case 4:
+        exenple = <Others/>
+        break;
       default:
         break;
     }
@@ -34,7 +42,10 @@ export default class App extends Component {
       <div className="App">
         <button onClick={() => this._changeIndex(0)}>Home</button>
         <button onClick={() => this._changeIndex(1)}>Simple</button>
-        <button onClick={() => this._changeIndex(2)}>Validation</button><br/>
+        <button onClick={() => this._changeIndex(2)}>Validation</button>
+        <button onClick={() => this._changeIndex(3)}>Mask</button>
+        <button onClick={() => this._changeIndex(4)}>Others</button>
+        <br/>
         {exenple}
       </div>
     );

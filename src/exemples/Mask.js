@@ -1,30 +1,6 @@
-
-# Getting Started
-
-## Features
-
-* [Basic Form Validation](/react-simple-form-control/BasicValidation)
-* [Async And Custom Form Validation](/react-simple-form-contro/CustomValidation)
-* [Mask](/react-simple-form-contro/Mask)
-* [More](/react-simple-form-contro/More)
-
-## Installing
-
-Run the following command:
-
-`npm i react-simple-form-control`
-
-## Basic Example
-
-In this exemple, we’ll build a simple form with validation.
-
-`Simple.js`
-
-```jsx
 import React, { Component} from 'react'
-import {Form} from 'react-simple-form-control'
-
-export default class Simple extends Component {
+import {Form} from '../lib'
+export default class Mask extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -49,19 +25,36 @@ export default class Simple extends Component {
                 }]
             }
           },
-          maritialState:{
-            value:"1"
+          cpf:{
+            value:'',
+            mask:'cpf',
+            validation:{
+                output:"cpfError",
+                validators:[{
+                    type:"required",
+                    msg:"Required Field."
+                }]
+            }
           },
-          gender:{
-            value:'M'
+          phone:{
+            value:'',
+            mask:'telUsa',
+            validation:{
+                output:"cpfError",
+                validators:[{
+                    type:"required",
+                    msg:"Required Field."
+                }]
+            }
           }
         }
     }
     this._onChangeForm = this._onChangeForm.bind(this);
 
-  }
+  }  
 
   _onSubmit = async (values,valid) => {
+    
     if (valid[0]) {
         console.log(values,valid);
     }
@@ -73,7 +66,6 @@ export default class Simple extends Component {
 
   render(){
     const {form} = this.state;
-    const genders = ['M','F'];
     return (
       <div className="App">
         <Form onSubmit={this._onSubmit} formControl={form} onChangeForm={this._onChangeForm}>
@@ -88,19 +80,19 @@ export default class Simple extends Component {
             <input type="text" id="lastname" name="lastname"/>
             <br/>
             <span id="lastnameError"></span>
-          </div>
+          </div> 
           <div>
-            Gender:<br/>
-            {genders.map(s => <input key={s} type="radio" id={`sexo${s}`} value={s} name="sexo"/>)}
-          </div>
+            CPF:<br/>
+            <input type="text" id="cpf" name="cpf"/>
+            <br/>
+            <span id="cpfError"></span>
+          </div>   
           <div>
-            Estado Civil:<br/>
-            <select id="estadoCivil" name="estadoCivil">
-                <option value="0">Selecione</option>
-                <option value="1">Casado</option>
-                <option value="2">Solteiro</option>
-            </select>
-          </div>
+            Phone:<br/>
+            <input type="text" id="phone" name="phone"/>
+            <br/>
+            <span id="phoneError"></span>
+          </div>   
           <div>
             <input type="submit" value="Submit" />
           </div>
@@ -109,23 +101,3 @@ export default class Simple extends Component {
     );
   }
 }
-
-
-
-```
-
-## Built With
-
-* [React](https://reactjs.org/) - The web library used
-
-## Contributing
-
-Coming soon I wiil open for submitting pull requests to us.
-
-## Authors
-
-* **Cleverson Biora** - [CleversonBiora](https://github.com/cleversonbiora)
-
-## License
-
-This project is licensed under the MIT License.

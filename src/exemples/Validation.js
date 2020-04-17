@@ -56,7 +56,7 @@ export default class Validation extends Component {
                 {
                     type:"async",
                     msg:"Email ja cadastrado.",
-                    apiUrl:"https://api.com/email?email={email}",
+                    apiUrl:"http://www.mocky.io/v2/5e988f593500002e00c483c2",
                     method:"GET",
                     headers:{
                             "Content-Type":"application/json",
@@ -67,8 +67,6 @@ export default class Validation extends Component {
             }
           },
           cpf:{
-            value:'',
-            mask:"cpf",
             validation:{
                 output:"cpfError",
                 validators:[{
@@ -80,12 +78,6 @@ export default class Validation extends Component {
                     msg:"Invalid CPF."
                 }]
             }
-          },
-          maritialState:{
-            value:"1"
-          },
-          gender:{
-            value:'M'
           },
           age:{
             value:'20',
@@ -106,19 +98,11 @@ export default class Validation extends Component {
     this._onChangeForm = this._onChangeForm.bind(this);
 
   }  
-  
-  componentDidMount() {
-    const{form} = this.state;
-    form.cpf.ref.current.focus();
-  }
 
   _onSubmit = async (values,valid) => {
     
     if (valid[0]) {
         console.log(values,valid);
-    }else{
-      const{form} = this.state;
-      window.scrollTo(0, form[valid[1][0].field].ref.current.offsetTop);
     }
   }
 
@@ -128,7 +112,8 @@ export default class Validation extends Component {
 
   _validStep = () => {
     const {form} = this.state;
-    console.log(isStepValid(form,['cpf', 'age']));
+    console.log(isStepValid(form,'step1')); //validate by step atribute
+    console.log(isStepValid(form,['cpf', 'age'])); //validate by array fields
   }
 
   _validForm = () => {
@@ -138,7 +123,6 @@ export default class Validation extends Component {
 
   render(){
     const {form} = this.state;
-    const genders = ['M','F'];
     return (
       <div className="App">
         <Form onSubmit={this._onSubmit} formControl={form} onChangeForm={this._onChangeForm}>
@@ -165,30 +149,17 @@ export default class Validation extends Component {
             <input type="text" id="cpf" name="cpf"/>
             <br/>
             <span id="cpfError"></span>
-          </div>  
-          <div>
-            Gender:<br/>
-            {genders.map(s => <input key={s} type="radio" id={`sexo${s}`} value={s} name="sexo"/>)}
-          </div>
-          <div>
-            Estado Civil:<br/>
-            <select id="estadoCivil" name="estadoCivil">
-                <option value="0">Selecione</option>
-                <option value="1">Casado</option>
-                <option value="2">Solteiro</option>
-            </select>
-          </div>          
+          </div>           
           <div>
             Age:<br/>
             <input type="text" id="age" name="age"/>
             <br/>
             <span id="ageError"></span>
           </div>
-      <div style={{height:1000}}></div>
           <div>
             <input type="submit" value="Submit" />
             <input type="button" onClick={this._validForm} value="Form Valid" />
-            <input type="button" value="Step Valid" />
+            <input type="button" onClick={this._validStep} value="Step Valid" />
           </div>
         </Form> 
       </div>

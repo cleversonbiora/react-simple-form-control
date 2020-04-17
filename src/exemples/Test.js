@@ -116,7 +116,7 @@ export default class Test extends Component {
   }
 
   render(){
-    const {form, valid, error} = this.state;
+    const {form, error} = this.state;
     const sexos = ['M','F'];
     return (
       <div className="App">
