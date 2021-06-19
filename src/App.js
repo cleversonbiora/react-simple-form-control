@@ -25,7 +25,6 @@ export default class App extends Component {
     let j = 0;
     let scape = false;
     for(let i = 0; i < mask.length; i++){
-      debugger
       if(mask[i] === '\\'){
         scape = true;
         continue;
