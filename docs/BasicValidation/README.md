@@ -16,7 +16,7 @@ this.state = {
                 output:"firstnameError",
                 validators:[{
                     type:"required",
-                    msg:"Required Field."
+                    message:"Required Field."
                 }]
             }
           }
@@ -38,7 +38,7 @@ this.state = {
                     validators:[{
                         type:"min",
                         params:[18],
-                        msg:"Min Age 18."
+                        message:"Min Age 18."
                     }]
                 }
             }
@@ -60,7 +60,7 @@ this.state = {
                     validators:[{
                         type:"max",
                         params:[60],
-                        msg:"Max Age 60."
+                        message:"Max Age 60."
                     }]
                 }
             }
@@ -82,7 +82,7 @@ this.state = {
                 validators:[{
                     type:"minLength",
                     params:[5],
-                    msg:"Min Length 5."
+                    message:"Min Length 5."
                 }]
             }
           }
@@ -104,7 +104,7 @@ this.state = {
                 validators:[{
                     type:"maxLength",
                     params:[15],
-                    msg:"Max Length 15."
+                    message:"Max Length 15."
                 }]
             }
           }
@@ -125,7 +125,7 @@ this.state = {
                 output:"emailError",
                 validators:[{
                     type:"email",
-                    msg:"Invalid Email."
+                    message:"Invalid Email."
                 }]
             }
           }
@@ -147,7 +147,7 @@ this.state = {
                 validators:[{
                     type:"pattern",
                     params:['\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}'],
-                    msg:"Invalid CPF."
+                    message:"Invalid CPF."
                 }]
             }
           }

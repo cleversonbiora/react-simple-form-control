@@ -1,4 +1,4 @@
-import { IControl, IFormControl, IValidation } from "../types";
+import { IFormControl, IValidation } from "../types";
 import { isVariable, getVariableString, getVariables } from "./values";
 
 export function getFormValues(form: any) {
@@ -160,8 +160,10 @@ export class Validators {
             // eslint-disable-next-line
             let jsonFunc: Function;
             if (rule.args) {
+                // eslint-disable-next-line
                 jsonFunc = new Function("value", ...rule.args, rule.body);
             } else {
+                // eslint-disable-next-line
                 jsonFunc = new Function("value", rule.body);
             }
             return jsonFunc(...args)

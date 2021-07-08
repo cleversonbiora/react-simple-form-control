@@ -1,4 +1,4 @@
-export function isControlledComponent(type) {
+export function isControlledComponent(type: string) {
     switch (type) {
         case 'select':
         case 'datalist':
@@ -9,7 +9,7 @@ export function isControlledComponent(type) {
             return false;
     }
 }
-export function isControlledInput(type) {
+export function isControlledInput(type: string) {
     switch (type) {
         case 'checkbox':
         case 'color':
@@ -36,7 +36,7 @@ export function isControlledInput(type) {
             return false;
     }
 }
-export function isVoidElement(type) {
+export function isVoidElement(type: string) {
     switch (type) {
         case 'area':
         case 'base':

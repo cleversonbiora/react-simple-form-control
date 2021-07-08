@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { isControlledComponent, isControlledInput } from '../helpers/inputs';
-import { IControl, IErro, IForm, IFormControl, ISubmitValid } from '../types';
+import { IControl, IForm, IFormControl } from '../types';
 import * as Mask from "../helpers/mask";
 import { getFormValues, getValidation, isFormValid } from '../helpers/validators';
 
@@ -24,7 +24,7 @@ type IProcessProps = {
     onChange?: (e: any) => void;
 }
 
-const Form2 = ({ formControl, children, change, valid, submit }: IForm, props: any) => {
+const Form = ({ formControl, children, change, valid, submit }: IForm, props: any) => {
 
     const [form, setForm] = useState(formControl);
     const [validations, setValidations] = useState<IValidation>(formatValidations(formControl));
@@ -88,7 +88,7 @@ const Form2 = ({ formControl, children, change, valid, submit }: IForm, props: a
                 value = mask(value);
             }
             else
-                value = Mask.maskFormat(value, formItem.mask);
+                value = Mask.maskFormat(`${value}`, formItem.mask);
         }
         return value;
     }
@@ -194,4 +194,4 @@ const Form2 = ({ formControl, children, change, valid, submit }: IForm, props: a
     );
 };
 
-export default Form2;
+export default Form;

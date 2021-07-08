@@ -1,6 +1,6 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
-import { 
+import {
   Simple,
   Validation,
   Mask,
@@ -8,42 +8,42 @@ import {
 } from './exemples'
 
 export default class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      index:0
+      index: 0
     }
   }
 
-  _changeIndex = (index) =>{
-    this.setState({index});
+  _changeIndex = (index) => {
+    this.setState({ index });
   }
 
-  maskFormat(value,mask) {
-    let chars = ['*','9','a'];
+  maskFormat(value, mask) {
+    let chars = ['*', '9', 'a'];
     let formatedValue = '';
     let j = 0;
     let scape = false;
-    for(let i = 0; i < mask.length; i++){
-      if(mask[i] === '\\'){
+    for (let i = 0; i < mask.length; i++) {
+      if (mask[i] === '\\') {
         scape = true;
         continue;
       }
-      if(chars.indexOf(mask[i]) === -1 || scape){
+      if (chars.indexOf(mask[i]) === -1 || scape) {
         formatedValue += mask[i];
-      }else{
-        if(j < value.length){
+      } else {
+        if (j < value.length) {
           switch (mask[i]) {
             case '9':
               let number = value[j].replace(/\D/g, '');
-              if(number)
+              if (number)
                 formatedValue += number;
               else
                 i--;
               break;
             case 'a':
               let char = value[j].replace(/[^a-zA-Z]+/g, '');
-              if(char)
+              if (char)
                 formatedValue += char;
               else
                 i--;
@@ -52,7 +52,7 @@ export default class App extends Component {
               formatedValue += value[j];
               break;
           }
-        }else{
+        } else {
           formatedValue += '_';
         }
         j++;
@@ -62,37 +62,37 @@ export default class App extends Component {
     return formatedValue;
   }
 
-  render(){
+  render() {
     const { index } = this.state;
     let exenple = <span>Select a exemple</span>;
     switch (index) {
       case 1:
-        exenple = <Simple/>
+        exenple = <Simple />
         break;
       case 2:
-        exenple = <Validation/>
+        exenple = <Validation />
         break;
       case 3:
-        exenple = <Mask/>
+        exenple = <Mask />
         break;
       case 4:
-        exenple = <Others/>
+        exenple = <Others />
         break;
       default:
         break;
     }
     return (
       <div className="App">
-        <div>{this.maskFormat('06266175967','999.999.999-99')}</div>
-        <div>{this.maskFormat('41999484325','(\\99) 99999-9999')}</div>
-        <div>{this.maskFormat('2145551234','+1 999 999-9999')}</div>
-        <div>{this.maskFormat('clev_ersonbiora','aaa****aaa')}</div>
+        <div>{this.maskFormat('06266175967', '999.999.999-99')}</div>
+        <div>{this.maskFormat('41999484325', '(\\99) 99999-9999')}</div>
+        <div>{this.maskFormat('2145551234', '+1 999 999-9999')}</div>
+        <div>{this.maskFormat('clev_ersonbiora', 'aaa****aaa')}</div>
         <button onClick={() => this._changeIndex(0)}>Home</button>
         <button onClick={() => this._changeIndex(1)}>Simple</button>
         <button onClick={() => this._changeIndex(2)}>Validation</button>
         <button onClick={() => this._changeIndex(3)}>Mask</button>
         <button onClick={() => this._changeIndex(4)}>Others</button>
-        <br/>
+        <br />
         {exenple}
       </div>
     );

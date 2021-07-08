@@ -1,16 +1,16 @@
 import { Validators } from "./helpers/validators"
 
-type IErro = {
+export type IErro = {
     field: any;
     value: any;
 }
 
-type ISubmitValid = {
+export type ISubmitValidation  = {
     valid: boolean;
     errors: IErro[];
 }
 
-type IValidator = {
+export type IValidator = {
     type: keyof typeof Validators;
     message: string;
     params?: string[];
@@ -18,12 +18,12 @@ type IValidator = {
     function?: (...args: any[]) => boolean;
 }
 
-type IValidation = {
+export type IValidation = {
     output: string;
     validators: IValidator[];
 }
 
-type IControl = {
+export type IControl = {
     value: string | number;
     validation: IValidation;
     ref?: React.RefObject<any>;
@@ -32,25 +32,15 @@ type IControl = {
     mask?: (value: string | number) => string | string;
 }
 
-type IFormControl = {
+export type IFormControl = {
     [key: string]: IControl
 }
 
-type IForm = {
+export type IForm = {
     formControl: IFormControl,
     children: any;
 
     change?: (form: IFormControl) => void;
     valid?: (valid: boolean, form: IFormControl) => void;
-    submit?: (form: IFormControl, valid: ISubmitValid) => void;
-}
-
-export type {
-    IForm,
-    IFormControl,
-    IControl,
-    IValidation,
-    IValidator,
-    ISubmitValid,
-    IErro
+    submit?: (form: IFormControl, validation: ISubmitValidation) => void;
 }

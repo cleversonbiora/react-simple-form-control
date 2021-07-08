@@ -13,7 +13,7 @@ this.state = {
                 output:"emailError",
                 validators:[{
                     type:"async",
-                    msg:"Email ja cadastrado.",
+                    message:"Email ja cadastrado.",
                     apiUrl:"http://www.mocky.io/v2/5e988f593500002e00c483c2",
                     method:"GET",
                     headers:{
@@ -50,7 +50,7 @@ this.state = {
                           return true;
                         return false;
                     },
-                    msg:"Last Name must be diffente from First Name"
+                    message:"Last Name must be diffente from First Name"
                 }]
             }
           }

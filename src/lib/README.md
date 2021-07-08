@@ -1,6 +1,8 @@
 # react-simple-form-control
 
-This is a React lib to simplify form controls.
+📝 This is a React lib to simplify form controls.
+
+React Simple Form Control is funded by [CleversonBiora](https://github.com/cleversonbiora) and updated by [MatheusBrito](https://github.com/BritoMatheus).
 
 ## Getting Started
 
@@ -9,6 +11,10 @@ This is a React lib to simplify form controls.
 Run the following command:
 
 `npm i react-simple-form-control`
+
+or
+
+`yarn i react-simple-form-control`
 
 ### Features
 
@@ -24,6 +30,7 @@ See the [Docs](https://cleversonbiora.github.io/react-simple-form-control/) for 
 ## Built With
 
 * [React](https://reactjs.org/) - The web library used
+* [Typescript](https://www.typescriptlang.org/) - Code easier to read and understand
 
 ## Contributing
 
@@ -32,6 +39,7 @@ Coming soon I wiil open for submitting pull requests to us.
 ## Author
 
 * **Cleverson Biora** - [CleversonBiora](https://github.com/cleversonbiora)
+* **Matheus Brito** - [MatheusBrito](https://github.com/BritoMatheus)
 
 ## License
 

@@ -41,7 +41,7 @@ export default class Test extends Component {
                 output:"firstnameError",
                 validators:[{
                     type:"required",
-                    msg:"Campo obrigatório."
+                    message:"Campo obrigatório."
                 },
                 {
                     type:"custom",
@@ -52,7 +52,7 @@ export default class Test extends Component {
                           return true;
                         return false;
                     },
-                    msg:"Teste inválido"
+                    message:"Teste inválido"
                 }]
             }
           },
@@ -75,7 +75,7 @@ export default class Test extends Component {
                 output:"doitError",
                 validators:[{
                     type:"required",
-                    msg:"Campo obrigatório."
+                    message:"Campo obrigatório."
                 }]
               }
           },

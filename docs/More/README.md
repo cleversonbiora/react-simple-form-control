@@ -88,12 +88,12 @@ Refs provide a way to access DOM nodes in the form.
 ### scroll to error
 
 ```jsx
-  _onSubmit = async (values,valid) => {
-    if (valid[0]) {
-        console.log(values,valid);
+  _onSubmit = async (values, validation) => {
+    if (validation.valid) {
+        console.log(values,validation);
     }else{
       const{form} = this.state;
-      window.scrollTo(0, form[valid[1][0].field].ref.current.offsetTop); //Scroll to first error field
+      window.scrollTo(0, form[validation.errors[0].field].ref.current.offsetTop); //Scroll to first error field
     }
   }
 ```
