@@ -50,10 +50,11 @@ export async function getValidation(validation, value, values = {}) {
     let valid = true;
     let msg = "";
     let output = validation.output;
+
     for (let element of validation.validators) {
         if (!Validators[element.type]) continue;
         if (element.type === 'async') {
-            var result = await Validators[element.type](element, values);
+            const result = await Validators[element.type](element, values);
             if (!result) {
                 valid = false;
                 msg = element.msg;
@@ -146,26 +147,30 @@ export class Validators {
     }
 
     static custom(rule, args) {
-        if (rule.function && rule.function instanceof Function) return rule.function(...args);else {
-            // eslint-disable-next-line
-            var jsonFunc = rule.args ? new Function(["value", ...rule.args], rule.body) : new Function(["value"], rule.body);
-            return jsonFunc(...args);
+        if (rule.function && rule.function instanceof Function) {
+            return rule.function(...args);
         }
+        // eslint-disable-next-line
+        var jsonFunc = rule.args ? new Function(["value", ...rule.args], rule.body) : new Function(["value"], rule.body);
+        return jsonFunc(...args);
     }
 
     static async async(rule, values) {
-        const { apiUrl, method, headers, valueField, root, body } = rule;
+        const { apiUrl, method, headers, valueField, root, body, custom } = rule;
+        if (custom && custom instanceof Function) {
+            return rule.function(values);
+        }
         var apiUrlVariabel = `${apiUrl}`;
         var variables = getVariables(apiUrl);
         variables.forEach(match => {
-            if (values[match]) apiUrlVariabel = apiUrlVariabel.replace('{' + match + '}', values[match]);else apiUrlVariabel = apiUrlVariabel.replace('{' + match + '}', "");
+            if (values[match]) apiUrlVariabel = apiUrlVariabel.replace('{' + match + '}', values[match]); else apiUrlVariabel = apiUrlVariabel.replace('{' + match + '}', "");
         });
         var bodyVariable;
         if (body) {
             bodyVariable = `${body}`;
             var vars = getVariables(body);
             vars.forEach(match => {
-                if (values[match]) bodyVariable = bodyVariable.replace('{' + match + '}', values[match]);else bodyVariable = bodyVariable.replace('{' + match + '}', "");
+                if (values[match]) bodyVariable = bodyVariable.replace('{' + match + '}', values[match]); else bodyVariable = bodyVariable.replace('{' + match + '}', "");
             });
         } else {
             bodyVariable = null;

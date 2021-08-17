@@ -48,7 +48,7 @@ export default class Form extends Component {
       const item = element[1];
       if (element[0] === e.target.name && item && item.validation) {
         const [output, valid, value] = await getValidation(item.validation, item.value, getFormValues(form));
-        if (!valid) validations[output] = value;else validations[output] = '';
+        if (!valid) validations[output] = value; else validations[output] = '';
       }
       this.setState(validations);
     });
@@ -127,7 +127,7 @@ export default class Form extends Component {
         if (!formItem.ref) formItem.ref = React.createRef();
         var value = formItem.value;
         if (formItem.mask) {
-          if (typeof formItem.mask === "function") value = formItem.mask(value);else if (Mask[formItem.mask]) value = Mask[formItem.mask](value);else value = Mask.maskFormat(value, formItem.mask);
+          if (typeof formItem.mask === "function") value = formItem.mask(value); else if (Mask[formItem.mask]) value = Mask[formItem.mask](value); else value = Mask.maskFormat(value, formItem.mask);
         }
         return _extends({}, element, { ref: formItem.ref, props: this.processProps(element.props, value) });
       }
@@ -144,17 +144,17 @@ export default class Form extends Component {
   render() {
     const _onSubmit = async event => {
       event.preventDefault();
-      if (this.props.onSubmit) this.props.onSubmit(getFormValues(this.state.form), (await this.isValid()));else console.log(this.state.form);
+      if (this.props.onSubmit) this.props.onSubmit(getFormValues(this.state.form), (await this.isValid())); else console.log(this.state.form);
     };
 
     const _props = this.props,
-          {
-      children,
-      formControl,
-      onChangeForm,
-      onValid
-    } = _props,
-          props = _objectWithoutProperties(_props, ["children", "formControl", "onChangeForm", "onValid"]);
+      {
+        children,
+        formControl,
+        onChangeForm,
+        onValid
+      } = _props,
+      props = _objectWithoutProperties(_props, ["children", "formControl", "onChangeForm", "onValid"]);
 
     const childrenProcessed = this.processControlledChildren(children);
 

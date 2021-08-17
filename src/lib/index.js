@@ -2,7 +2,8 @@ import Form from './components/Form';
 import {
     isFormValid,
     getFormValues,
-    isStepValid
+    isStepValid,
+    Validators
 } from './helpers/validators';
 import {
     mapValues
@@ -18,5 +19,6 @@ export {
     getFormValues,
     isStepValid,
     mapValues,
-    maskFormat
+    maskFormat,
+    Validators
 }
