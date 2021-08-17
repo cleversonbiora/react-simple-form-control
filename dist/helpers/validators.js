@@ -163,14 +163,14 @@ export class Validators {
         var apiUrlVariabel = `${apiUrl}`;
         var variables = getVariables(apiUrl);
         variables.forEach(match => {
-            if (values[match]) apiUrlVariabel = apiUrlVariabel.replace('{' + match + '}', values[match]); else apiUrlVariabel = apiUrlVariabel.replace('{' + match + '}', "");
+            if (values[match]) apiUrlVariabel = apiUrlVariabel.replace('{' + match + '}', values[match]);else apiUrlVariabel = apiUrlVariabel.replace('{' + match + '}', "");
         });
         var bodyVariable;
         if (body) {
             bodyVariable = `${body}`;
             var vars = getVariables(body);
             vars.forEach(match => {
-                if (values[match]) bodyVariable = bodyVariable.replace('{' + match + '}', values[match]); else bodyVariable = bodyVariable.replace('{' + match + '}', "");
+                if (values[match]) bodyVariable = bodyVariable.replace('{' + match + '}', values[match]);else bodyVariable = bodyVariable.replace('{' + match + '}', "");
             });
         } else {
             bodyVariable = null;
