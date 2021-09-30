@@ -16,6 +16,7 @@ export default class Form extends Component {
     }
     this.onChange = this.onChange.bind(this);
     this.onBlur = this.onBlur.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   onChange(event) {
@@ -78,6 +79,14 @@ export default class Form extends Component {
     }
     this.setState(validations);
     return [isValid, errors];
+  }
+
+  async onSubmit(event) {
+    event && event.preventDefault();
+    if (this.props.onSubmit)
+      this.props.onSubmit(getFormValues(this.state.form), await this.isValid());
+    else
+      console.log(this.state.form);
   }
 
   processControlledChildren(parent) {
@@ -153,14 +162,6 @@ export default class Form extends Component {
   }
 
   render() {
-    const _onSubmit = async (event) => {
-      event.preventDefault();
-      if (this.props.onSubmit)
-        this.props.onSubmit(getFormValues(this.state.form), await this.isValid());
-      else
-        console.log(this.state.form);
-    }
-
     const {
       children,
       formControl,
@@ -172,7 +173,7 @@ export default class Form extends Component {
     const childrenProcessed = this.processControlledChildren(children);
 
     return (
-      <form {...props} onSubmit={_onSubmit}>
+      <form {...props} onSubmit={this.onSubmit}>
         {childrenProcessed}
       </form>
     );
