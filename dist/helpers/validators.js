@@ -158,7 +158,7 @@ export class Validators {
     static async async(rule, values) {
         const { apiUrl, method, headers, valueField, root, body, custom } = rule;
         if (custom && custom instanceof Function) {
-            return rule.function(values);
+            return rule.custom(values);
         }
         var apiUrlVariabel = `${apiUrl}`;
         var variables = getVariables(apiUrl);
